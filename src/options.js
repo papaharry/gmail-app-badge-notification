@@ -36,6 +36,5 @@ function saveOptions(event) {
 }
 
 
-
 document.addEventListener('DOMContentLoaded', restoreOptions);
 document.getElementById('settings-form').addEventListener('submit', saveOptions);
