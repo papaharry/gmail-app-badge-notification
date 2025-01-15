@@ -12,8 +12,20 @@ function saveOptions(event) {
     event.preventDefault();
     const label = document.getElementById('label').value.trim();
 
-    // Transform "important" to "^iim" without reassigning label
-    const finalLabel = label.toLowerCase() === 'important' ? '^iim' : label;
+    // Define a mapping of labels to their transformed values
+    const labelMap = {
+        'important': '^iim',
+        'personal': '^smartlabel_personal',
+        'social': '^smartlabel_social',
+        'promotions': '^smartlabel_promo',
+        'updates': '^smartlabel_notification',
+        'forums': '^smartlabel_group',
+        'newsletter': '^smartlabel_newsletter',
+        'receipt': '^smartlabel_receipt',
+    };
+
+    // Transform label using the mapping, default to original label
+    const finalLabel = labelMap[label.toLowerCase()] || label;
 
     chrome.storage.sync.set({ label: finalLabel }, () => {
         const status = document.getElementById('status');
@@ -21,6 +33,7 @@ function saveOptions(event) {
         setTimeout(() => status.classList.remove('show'), 2000);
     });
 }
+
 
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
