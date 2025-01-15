@@ -13,6 +13,8 @@ function saveOptions(event) {
     const label = document.getElementById('label').value.trim();
 
     // Define a mapping of labels to their transformed values
+    // the transformed values are the ones used and displayed in Gmail's Atom feed
+    // the original labels are the ones still used by good ol' Gmail although they updated the UI to the new values
     const labelMap = {
         'important': '^iim',
         'personal': '^smartlabel_personal',
@@ -24,7 +26,6 @@ function saveOptions(event) {
         'receipt': '^smartlabel_receipt',
     };
 
-    // Transform label using the mapping, default to original label
     const finalLabel = labelMap[label.toLowerCase()] || label;
 
     chrome.storage.sync.set({ label: finalLabel }, () => {
